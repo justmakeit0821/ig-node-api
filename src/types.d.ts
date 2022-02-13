@@ -52,3 +52,28 @@ export interface SecurityTokens {
     cst: string
     xst: string
 }
+
+export interface Candle {
+    LTV: string
+    TTV: string
+    UTM: string
+    DAY_OPEN_MID: string
+    DAY_NET_CHG_MID: string
+    DAY_PERC_CHG_MID: string
+    DAY_HIGH: string
+    DAY_LOW: string
+    OFR_OPEN: string
+    OFR_HIGH: string
+    OFR_LOW: string
+    OFR_CLOSE: string
+    BID_OPEN: string
+    BID_HIGH: string
+    BID_LOW: string
+    BID_CLOSE: string
+    LTP_OPEN: string
+    LTP_HIGH: string
+    LTP_LOW: string
+    LTP_CLOSE: string
+    CONS_END: string
+    CONS_TICK_COUNT: string
+}

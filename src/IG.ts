@@ -3,6 +3,7 @@ import { API_BASE_URL } from './constant'
 import { Session, SecurityTokens } from './types'
 import { authenticate, fetchSecurityTokens } from './rest/session'
 import { searchEpics } from './rest/market'
+import { connectLightStreamer } from './stream/connectLightStreamer'
 
 export default class IG {
     private username: string
@@ -34,5 +35,9 @@ export default class IG {
 
     async searchEpics(query: string) {
         return await searchEpics(API_BASE_URL.DEMO, query, this.igApiKey, this.session.accountId, this.session.oauthToken.access_token)
+    }
+
+    connectLightStreamer() {
+        return connectLightStreamer(this.session.lightstreamerEndpoint, this.session.accountId, this.securityTokens.cst, this.securityTokens.xst)
     }
 }
