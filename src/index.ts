@@ -10,8 +10,6 @@ const main = async () => {
     console.log('session:', session)
     const markets = await myIg.searchEpics('us30')
     console.log(markets[0])
-    const securityTokens = await myIg.fetchSecurityTokens()
-    console.log(securityTokens)
 
     const lsClient = myIg.connectLightStreamer()
     const candleSubscription = constructCandleSubscription(

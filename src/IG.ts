@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { API_BASE_URL } from './constant'
 import { Session, SecurityTokens } from './types'
-import { authenticate, fetchSecurityTokens } from './rest/session'
+import { fetchOauthTokens, fetchSecurityTokens } from './rest/session'
 import { searchEpics } from './rest/market'
 import { connectLightStreamer } from './stream/connectLightStreamer'
 
@@ -19,18 +19,14 @@ export default class IG {
     }
 
     async authenticate() {
-        this.session = await authenticate(API_BASE_URL.DEMO, this.username, this.password, this.igApiKey)
-        return this.session
-    }
-
-    async fetchSecurityTokens() {
+        this.session = await fetchOauthTokens(API_BASE_URL.DEMO, this.username, this.password, this.igApiKey)
         this.securityTokens = await fetchSecurityTokens(
             API_BASE_URL.DEMO,
             this.igApiKey,
             this.session.accountId,
             this.session.oauthToken.access_token
         )
-        return this.securityTokens
+        return this.session
     }
 
     async searchEpics(query: string) {

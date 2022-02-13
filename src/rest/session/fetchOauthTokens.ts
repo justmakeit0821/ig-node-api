@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Session } from '../../types'
 
-export const authenticate = async (apiBaseUrl: string, username: string, password: string, igApiKey: string) => {
+export const fetchOauthTokens = async (apiBaseUrl: string, username: string, password: string, igApiKey: string) => {
     try {
         const { status, statusText, data }: { status: number; statusText: string; data: Session } = await axios({
             method: 'post',
@@ -14,15 +14,14 @@ export const authenticate = async (apiBaseUrl: string, username: string, passwor
         })
 
         if (status === 200) {
-            console.info(`Authenticated ${username} 😄.`)
             return data
         } else {
-            const errMsg = `Cannot authenticate ${username} 😥, due to ${status} - ${statusText}.`
+            const errMsg = `Cannot get OAuth Tokens for ${username} 😥, due to ${status} - ${statusText}.`
             console.error(errMsg)
             throw new Error(errMsg)
         }
     } catch (err) {
-        const errMsg = `Cannot authenticate ${username} 😥, due to ${err}`
+        const errMsg = `Cannot get OAuth Tokens for ${username} 😥, due to ${err}`
         console.error(errMsg)
         throw new Error(errMsg)
     }

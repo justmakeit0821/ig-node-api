@@ -1,3 +1,3 @@
-import { authenticate } from './authenticate'
+import { fetchOauthTokens } from './fetchOauthTokens'
 import { fetchSecurityTokens } from './fetchSecurityTokens'
-export { authenticate, fetchSecurityTokens }
+export { fetchOauthTokens, fetchSecurityTokens }
