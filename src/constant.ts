@@ -37,8 +37,8 @@ export enum CandleField {
 }
 
 export enum Scale {
-    HOUR = 'HOUR',
-    MINUTE = '1MINUTE',
-    MINUTE_5 = '5MINUTE',
-    SECOND = 'SECOND'
+    'SECOND' = 'SECOND',
+    '1MINUTE' = '1MINUTE',
+    '5MINUTE' = '5MINUTE',
+    'HOUR' = 'HOUR'
 }

@@ -14,7 +14,7 @@ const main = async () => {
     const lsClient = myIg.connectLightStreamer()
     const candleSubscription = constructCandleSubscription(
         ['CS.D.BITCOIN.CFD.IP'],
-        Scale.MINUTE,
+        Scale['1MINUTE'],
         Object.values(CandleField),
         (epic: string, data: Candle) => {
             data.UTM = new Date(Number(data.UTM)).toLocaleString()
