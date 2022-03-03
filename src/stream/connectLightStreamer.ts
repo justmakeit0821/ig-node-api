@@ -10,7 +10,7 @@ export const connectLightStreamer = (lsEndPoint: string, accountId: string, cst:
     */
     lsClient.addListener({
         onListenStart: function (lsClient: LightstreamerClient) {
-            console.info('On Listen Start:', { ...lsClient })
+            console.info('On Listen Start.')
         },
         onStatusChange: function (status: string) {
             console.info('On Status Change:', status)
@@ -19,10 +19,10 @@ export const connectLightStreamer = (lsEndPoint: string, accountId: string, cst:
             console.error('On Server Error:', errCode, errMsg)
         },
         onListenEnd: function (lsClient: LightstreamerClient) {
-            console.info('On Listen End:', { ...lsClient })
+            console.info('On Listen End.')
         },
         onPropertyChange: function (property: string) {
-            console.info('On Property Change:', property)
+            // console.info('On Property Change:', property)
         }
     })
 
