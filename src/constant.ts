@@ -42,3 +42,10 @@ export enum Scale {
     '5MINUTE' = '5MINUTE',
     'HOUR' = 'HOUR'
 }
+
+export enum MarketDetailsFilterType {
+    /** Display all market details. Market details includes all instrument data, dealing rules and market snapshot values for all epics specified. */
+    ALL = 'ALL',
+    /** Display the market snapshot and minimal instrument data fields. This mode is faster because it only sets the epic and instrument type in the instrument data and the market data snapshot values with all the other fields being unset for each epic specified. */
+    SNAPSHOT_ONLY = 'SNAPSHOT_ONLY'
+}
