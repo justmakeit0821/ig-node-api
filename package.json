@@ -4,7 +4,8 @@
     "description": "A Node.js library for IG Trading API.",
     "main": "index.js",
     "scripts": {
-        "dev": "ts-node -r dotenv/config ./src/index.ts"
+        "dev": "nodemon -r dotenv/config ./src/index.ts",
+        "start": "ts-node -r dotenv/config ./src/index.ts"
     },
     "keywords": [
         "ig",
@@ -15,6 +16,7 @@
     "license": "MIT",
     "devDependencies": {
         "dotenv": "^16.0.0",
+        "nodemon": "^2.0.15",
         "ts-node": "^10.5.0",
         "tslib": "^2.3.1",
         "typescript": "^4.5.5"
