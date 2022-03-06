@@ -2,7 +2,7 @@ import { API_BASE_URL, MarketDetailsFilterType } from './constant'
 import { Session, SecurityTokens, PriceRequest, CreateWatchlistRequest } from './types'
 import { fetchOauthTokens, fetchSecurityTokens } from './rest/session'
 import { searchEpics, getMarketCategories, getMarketSubCategories, getMarketsDetails, getMarketDetails, getPrices } from './rest/market'
-import { getWatchlists, getWatchlistDetail, createWatchlist, deleteWatchlist } from './rest/watchlist/watchlists'
+import { getWatchlists, getWatchlistDetail, createWatchlist, deleteWatchlist } from './rest/watchlist'
 import { connectLightStreamer } from './stream/connectLightStreamer'
 
 export default class IG {
