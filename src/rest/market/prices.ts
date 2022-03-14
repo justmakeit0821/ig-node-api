@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { PriceResponse, PriceResolution } from '../../types'
-import { handleAxiosError } from '../axios-error-handler'
 
 export const getPrices = async (
     apiBaseUrl: string,
@@ -33,19 +32,15 @@ export const getPrices = async (
         searchParams.append('to', to)
     }
 
-    try {
-        const { data }: { data: PriceResponse } = await axios({
-            method: 'get',
-            url: `${apiBaseUrl}/prices/${epic}?${searchParams.toString()}`,
-            headers: {
-                'X-IG-API-KEY': igApiKey,
-                'IG-ACCOUNT-ID': accountId,
-                Authorization: `Bearer ${accessToken}`,
-                Version: 3
-            }
-        })
-        return data
-    } catch (err: any) {
-        return handleAxiosError(err)
-    }
+    const { data }: { data: PriceResponse } = await axios({
+        method: 'get',
+        url: `${apiBaseUrl}/prices/${epic}?${searchParams.toString()}`,
+        headers: {
+            'X-IG-API-KEY': igApiKey,
+            'IG-ACCOUNT-ID': accountId,
+            Authorization: `Bearer ${accessToken}`,
+            Version: 3
+        }
+    })
+    return data
 }

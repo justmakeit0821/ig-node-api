@@ -8,7 +8,6 @@ import {
     Position,
     Market
 } from '../../types'
-import { handleAxiosError } from '../axios-error-handler'
 
 export const createOtcPosition = async (
     createPositionRequest: CreatePositionRequest,
@@ -37,56 +36,44 @@ export const closeOtcPosition = async (
     accountId: string,
     accessToken: string
 ) => {
-    try {
-        const { data }: { data: ClosePositionResponse } = await axios({
-            method: 'post',
-            url: `${apiBaseUrl}/positions/otc`,
-            headers: {
-                'X-IG-API-KEY': igApiKey,
-                'IG-ACCOUNT-ID': accountId,
-                Authorization: `Bearer ${accessToken}`,
-                Version: 1,
-                _method: 'DELETE'
-            },
-            data: closePositionRequest
-        })
-        return data
-    } catch (err: any) {
-        return handleAxiosError(err)
-    }
+    const { data }: { data: ClosePositionResponse } = await axios({
+        method: 'post',
+        url: `${apiBaseUrl}/positions/otc`,
+        headers: {
+            'X-IG-API-KEY': igApiKey,
+            'IG-ACCOUNT-ID': accountId,
+            Authorization: `Bearer ${accessToken}`,
+            Version: 1,
+            _method: 'DELETE'
+        },
+        data: closePositionRequest
+    })
+    return data
 }
 
 export const checkDealStatus = async (dealReference: string, apiBaseUrl: string, igApiKey: string, accountId: string, accessToken: string) => {
-    try {
-        const { data }: { data: CheckDealStatusResponse } = await axios({
-            method: 'get',
-            url: `${apiBaseUrl}/confirms/${dealReference}`,
-            headers: {
-                'X-IG-API-KEY': igApiKey,
-                'IG-ACCOUNT-ID': accountId,
-                Authorization: `Bearer ${accessToken}`
-            }
-        })
-        return data
-    } catch (err: any) {
-        return handleAxiosError(err)
-    }
+    const { data }: { data: CheckDealStatusResponse } = await axios({
+        method: 'get',
+        url: `${apiBaseUrl}/confirms/${dealReference}`,
+        headers: {
+            'X-IG-API-KEY': igApiKey,
+            'IG-ACCOUNT-ID': accountId,
+            Authorization: `Bearer ${accessToken}`
+        }
+    })
+    return data
 }
 
 export const getOpenPositions = async (apiBaseUrl: string, igApiKey: string, accountId: string, accessToken: string) => {
-    try {
-        const { data }: { data: { positions: Array<{ position: Position; market: Market }> } } = await axios({
-            method: 'get',
-            url: `${apiBaseUrl}/positions`,
-            headers: {
-                'X-IG-API-KEY': igApiKey,
-                'IG-ACCOUNT-ID': accountId,
-                Authorization: `Bearer ${accessToken}`,
-                Version: 2
-            }
-        })
-        return data
-    } catch (err: any) {
-        return handleAxiosError(err)
-    }
+    const { data }: { data: { positions: Array<{ position: Position; market: Market }> } } = await axios({
+        method: 'get',
+        url: `${apiBaseUrl}/positions`,
+        headers: {
+            'X-IG-API-KEY': igApiKey,
+            'IG-ACCOUNT-ID': accountId,
+            Authorization: `Bearer ${accessToken}`,
+            Version: 2
+        }
+    })
+    return data
 }
