@@ -1,8 +1,9 @@
 import { API_BASE_URL, MarketDetailsFilterType } from './constant'
-import { Session, SecurityTokens, PriceRequest, CreateWatchlistRequest } from './types'
+import { Session, SecurityTokens, PriceRequest, CreateWatchlistRequest, CreatePositionRequest, ClosePositionRequest } from './types'
 import { fetchOauthTokens, fetchSecurityTokens } from './rest/session'
 import { searchEpics, getMarketCategories, getMarketSubCategories, getMarketsDetails, getMarketDetails, getPrices } from './rest/market'
 import { getWatchlists, getWatchlistDetail, createWatchlist, deleteWatchlist } from './rest/watchlist'
+import { createOtcPosition, closeOtcPosition, checkDealStatus, getOpenPositions } from './rest/dealing'
 import { connectLightStreamer } from './stream/connectLightStreamer'
 
 export default class IG {
@@ -18,6 +19,7 @@ export default class IG {
         this.igApiKey = igApiKey
     }
 
+    /* REST APIs */
     /** Authenticate with username and password to obtain trading session and security tokens for subsequent API access */
     async authenticate() {
         this.session = await fetchOauthTokens(API_BASE_URL.DEMO, this.username, this.password, this.igApiKey)
@@ -98,6 +100,39 @@ export default class IG {
         return await deleteWatchlist(watchlistId, API_BASE_URL.DEMO, this.igApiKey, this.session.accountId, this.session.oauthToken.access_token)
     }
 
+    /** Creates an OTC position - either Buy or Sell direction. */
+    async createOtcPosition(createPositionRequest: CreatePositionRequest) {
+        return await createOtcPosition(
+            createPositionRequest,
+            API_BASE_URL.DEMO,
+            this.igApiKey,
+            this.session.accountId,
+            this.session.oauthToken.access_token
+        )
+    }
+
+    /** Close one or more OTC positions. */
+    async closeOtcPosition(closePositionRequest: ClosePositionRequest) {
+        return await closeOtcPosition(
+            closePositionRequest,
+            API_BASE_URL.DEMO,
+            this.igApiKey,
+            this.session.accountId,
+            this.session.oauthToken.access_token
+        )
+    }
+
+    /** Returns a deal confirmation for the given deal reference. */
+    async checkDealStatus(dealReference: string) {
+        return await checkDealStatus(dealReference, API_BASE_URL.DEMO, this.igApiKey, this.session.accountId, this.session.oauthToken.access_token)
+    }
+
+    /** Returns all open positions for the active account. */
+    async getOpenPositions() {
+        return await getOpenPositions(API_BASE_URL.DEMO, this.igApiKey, this.session.accountId, this.session.oauthToken.access_token)
+    }
+
+    /* Streaming APIs */
     connectLightStreamer() {
         return connectLightStreamer(this.session.lightstreamerEndpoint, this.session.accountId, this.securityTokens.cst, this.securityTokens.xst)
     }

@@ -7,8 +7,11 @@ import { Candle } from './types'
 const main = async () => {
     try {
         const myIg = new IG(process.env.IG_DEMO_USERNAME, process.env.IG_DEMO_PASSWORD, process.env.IG_DEMO_API_KEY)
+
+        /* Test REST APIs */
         const session = await myIg.authenticate()
         console.log('session:', session)
+
         // const markets = await myIg.searchEpics('us30')
         // console.log(markets[0])
 
@@ -35,21 +38,61 @@ const main = async () => {
         // })
         // console.log(prices)
 
-        const watchlistCreateResult = await myIg.createWatchlist({
-            name: `My Dear Babe's Watchlist`,
-            epics: ['IX.D.DOW.IFD.IP', 'IX.D.SPTRD.IFA.IP']
-        })
-        console.log(watchlistCreateResult)
+        // const watchlistCreateResult = await myIg.createWatchlist({
+        //     name: `My Dear Babe's Watchlist`,
+        //     epics: ['IX.D.DOW.IFD.IP', 'IX.D.SPTRD.IFA.IP', 'CS.D.BITCOIN.CFD.IP']
+        // })
+        // console.log(watchlistCreateResult)
 
-        const watchlists = await myIg.getWatchlists()
-        console.log(watchlists)
+        // const watchlists = await myIg.getWatchlists()
+        // console.log(watchlists)
 
         // const watchlistDeatil = await myIg.getWatchlistDetail('16906317')
         // console.log(watchlistDeatil)
 
-        const watchlistDeleteResult = await myIg.deleteWatchlist('16906317')
-        console.log(watchlistDeleteResult)
+        // const watchlistDeleteResult = await myIg.deleteWatchlist('16906317')
+        // console.log(watchlistDeleteResult)
 
+        // const createPositionResponse = await myIg.createOtcPosition({
+        //     epic: 'CS.D.BITCOIN.CFD.IP',
+        //     direction: 'BUY',
+        //     orderType: 'MARKET',
+        //     size: 3,
+        //     forceOpen: true,
+        //     guaranteedStop: false,
+        //     currencyCode: 'USD',
+        //     expiry: '-'
+
+        //     // level: 1,
+        //     // limitLevel: 1,
+        //     // limitDistance: 1,
+
+        //     // stopLevel: 1,
+        //     // stopDistance: 1,
+        //     // trailingStopIncrement: 1,
+        //     // trailingStop: false,
+
+        //     // timeInForce: 'FILL_OR_KILL'
+        //     // quoteId: '',
+        //     // dealReference: 'Hello_Bitcoin8'
+        // })
+        // console.log(createPositionResponse)
+
+        // const dealStatus = await myIg.checkDealStatus(createPositionResponse.dealReference)
+        // console.log(dealStatus)
+
+        // const closePositionResponse = await myIg.closeOtcPosition({
+        //     dealId: 'DIAAAAHT5EG3KA5',
+        //     direction: 'SELL',
+        //     size: 0.1,
+        //     orderType: 'MARKET'
+        // })
+        // console.log('closePositionResponse:', closePositionResponse)
+
+        const openPositions = await myIg.getOpenPositions()
+        console.log(JSON.stringify(openPositions, null, 4))
+
+        /* Test Streaming APIs */
         // const lsClient = myIg.connectLightStreamer()
         // const candleSubscription = constructCandleSubscription(
         //     ['CS.D.BITCOIN.CFD.IP'],
