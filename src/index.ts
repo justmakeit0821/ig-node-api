@@ -89,8 +89,11 @@ const main = async () => {
         // })
         // console.log('closePositionResponse:', closePositionResponse)
 
-        const openPositions = await myIg.getOpenPositions()
-        console.log(JSON.stringify(openPositions, null, 4))
+        // const openPositions = await myIg.getOpenPositions()
+        // console.log(JSON.stringify(openPositions, null, 4))
+
+        const anOpenPosition = await myIg.getOpenPosition('DIAAAAHT5EG3KA5')
+        console.log(JSON.stringify(anOpenPosition, null, 4))
 
         /* Test Streaming APIs */
         // const lsClient = myIg.connectLightStreamer()

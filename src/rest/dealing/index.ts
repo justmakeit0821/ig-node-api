@@ -1,2 +1,2 @@
-import { createOtcPosition, closeOtcPosition, checkDealStatus, getOpenPositions } from './positions'
-export { createOtcPosition, closeOtcPosition, checkDealStatus, getOpenPositions }
+import { createOtcPosition, closeOtcPosition, checkDealStatus, getOpenPositions, getOpenPosition } from './positions'
+export { createOtcPosition, closeOtcPosition, checkDealStatus, getOpenPositions, getOpenPosition }

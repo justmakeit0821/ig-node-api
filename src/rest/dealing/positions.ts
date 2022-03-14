@@ -77,3 +77,17 @@ export const getOpenPositions = async (apiBaseUrl: string, igApiKey: string, acc
     })
     return data
 }
+
+export const getOpenPosition = async (dealId: string, apiBaseUrl: string, igApiKey: string, accountId: string, accessToken: string) => {
+    const { data }: { data: { position: Position; market: Market } } = await axios({
+        method: 'get',
+        url: `${apiBaseUrl}/positions/${dealId}`,
+        headers: {
+            'X-IG-API-KEY': igApiKey,
+            'IG-ACCOUNT-ID': accountId,
+            Authorization: `Bearer ${accessToken}`,
+            Version: 2
+        }
+    })
+    return data
+}

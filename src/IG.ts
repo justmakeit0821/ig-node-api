@@ -3,7 +3,7 @@ import { Session, SecurityTokens, PriceRequest, CreateWatchlistRequest, CreatePo
 import { fetchOauthTokens, fetchSecurityTokens } from './rest/session'
 import { searchEpics, getMarketCategories, getMarketSubCategories, getMarketsDetails, getMarketDetails, getPrices } from './rest/market'
 import { getWatchlists, getWatchlistDetail, createWatchlist, deleteWatchlist } from './rest/watchlist'
-import { createOtcPosition, closeOtcPosition, checkDealStatus, getOpenPositions } from './rest/dealing'
+import { createOtcPosition, closeOtcPosition, checkDealStatus, getOpenPositions, getOpenPosition } from './rest/dealing'
 import { connectLightStreamer } from './stream/connectLightStreamer'
 
 export default class IG {
@@ -130,6 +130,11 @@ export default class IG {
     /** Returns all open positions for the active account. */
     async getOpenPositions() {
         return await getOpenPositions(API_BASE_URL.DEMO, this.igApiKey, this.session.accountId, this.session.oauthToken.access_token)
+    }
+
+    /** Returns an open position for the active account by Deal Id. */
+    async getOpenPosition(dealId: string) {
+        return await getOpenPosition(dealId, API_BASE_URL.DEMO, this.igApiKey, this.session.accountId, this.session.oauthToken.access_token)
     }
 
     /* Streaming APIs */

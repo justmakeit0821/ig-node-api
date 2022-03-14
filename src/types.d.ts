@@ -257,7 +257,7 @@ export type PriceResolution =
 export interface PriceResponse {
     instrumentType: InstrumentType
     metadata: Metadata
-    prices: Price[]
+    prices: Candlestick[]
 }
 
 export interface Metadata {
