@@ -620,3 +620,86 @@ export interface Position {
     trailingStep: number
     trailingStopDistance: number
 }
+
+/* Transaction History Request - Start */
+export interface TransactionHistoryRequest {
+    type: TransactionType
+    /** Limits the timespan in seconds through to current time (not applicable if a date range has been specified) */
+    maxSpanSeconds?: number
+    /** Page size (disable paging = 0) (Default = 20) */
+    pageSize?: number
+    /** Page number (Default = 1) */
+    pageNumber?: number
+    /** DateTime Format: yyyy-MM-dd'T'HH:mm:ss */
+    from?: string
+    /** DateTime Format: yyyy-MM-dd'T'HH:mm:ss */
+    to?: string
+}
+/* Transaction History Request - End */
+
+export type TransactionType = 'ALL' | 'ALL_DEAL' | 'DEPOSIT' | 'WITHDRAWAL'
+
+export interface Transaction {
+    /** True if this was a cash transaction */
+    cashTransaction: boolean
+    /** Level at which the order was closed */
+    closeLevel: string
+    /** Order currency */
+    currency: string
+    date: string
+    dateUtc: string
+    instrumentName: string
+    /** Position opened date */
+    openDateUtc: string
+    /** Level at which the order was opened */
+    openLevel: string
+    period: string
+    profitAndLoss: string
+    /** Reference */
+    reference: string
+    /** Formatted order size, including the direction (+ for buy, - for sell) */
+    size: string
+    transactionType: string
+}
+
+/* Transaction History Response - Start */
+export interface TransactionHistoryResponse {
+    transactions: Transaction[]
+    metadata: {
+        size: number
+        pageData: PageData
+    }
+}
+/* Transaction History Response - End */
+
+export interface Account {
+    accountAlias: string
+    accountId: string
+    accountName: string
+    accountType: AccountType
+    balance: Balance
+    /** True if account can be transferred to */
+    canTransferFrom: boolean
+    /** True if account can be transferred from */
+    canTransferTo: boolean
+    /** Account currency */
+    currency: string
+    /** True if this the default login account */
+    preferred: boolean
+    status: AccountStatus
+}
+
+export interface Balance {
+    /** Amount available for trading */
+    available: number
+    /** Balance of funds in the account */
+    balance: number
+    /** Minimum deposit amount required for margins */
+    deposit: number
+    /** Profit and loss amount */
+    profitLoss: number
+}
+
+export type AccountType = 'CFD' | 'PHYSICAL' | 'SPREADBET'
+
+export type AccountStatus = 'DISABLED' | 'ENABLED' | 'SUSPENDED_FROM_DEALING'

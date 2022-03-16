@@ -92,8 +92,14 @@ const main = async () => {
         // const openPositions = await myIg.getOpenPositions()
         // console.log(JSON.stringify(openPositions, null, 4))
 
-        const anOpenPosition = await myIg.getOpenPosition('DIAAAAHT5EG3KA5')
-        console.log(JSON.stringify(anOpenPosition, null, 4))
+        // const anOpenPosition = await myIg.getOpenPosition('DIAAAAHT5EG3KA5')
+        // console.log(JSON.stringify(anOpenPosition, null, 4))
+
+        const accountDetails = await myIg.getAccountDetails()
+        console.log(JSON.stringify(accountDetails, null, 4))
+
+        const transactionHistory = await myIg.getTransactionHistory({ type: 'ALL', maxSpanSeconds: 600000 })
+        console.log(transactionHistory)
 
         /* Test Streaming APIs */
         // const lsClient = myIg.connectLightStreamer()

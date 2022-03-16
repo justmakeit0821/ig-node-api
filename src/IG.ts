@@ -1,9 +1,18 @@
 import { API_BASE_URL, MarketDetailsFilterType } from './constant'
-import { Session, SecurityTokens, PriceRequest, CreateWatchlistRequest, CreatePositionRequest, ClosePositionRequest } from './types'
+import {
+    Session,
+    SecurityTokens,
+    PriceRequest,
+    CreateWatchlistRequest,
+    CreatePositionRequest,
+    ClosePositionRequest,
+    TransactionHistoryRequest
+} from './types'
 import { fetchOauthTokens, fetchSecurityTokens } from './rest/session'
 import { searchEpics, getMarketCategories, getMarketSubCategories, getMarketsDetails, getMarketDetails, getPrices } from './rest/market'
 import { getWatchlists, getWatchlistDetail, createWatchlist, deleteWatchlist } from './rest/watchlist'
 import { createOtcPosition, closeOtcPosition, checkDealStatus, getOpenPositions, getOpenPosition } from './rest/dealing'
+import { getAccountDetails, getTransactionHistory } from './rest/account'
 import { connectLightStreamer } from './stream/connectLightStreamer'
 
 export default class IG {
@@ -135,6 +144,27 @@ export default class IG {
     /** Returns an open position for the active account by Deal Id. */
     async getOpenPosition(dealId: string) {
         return await getOpenPosition(dealId, API_BASE_URL.DEMO, this.igApiKey, this.session.accountId, this.session.oauthToken.access_token)
+    }
+
+    /** Returns a list of accounts belonging to the logged-in client. */
+    async getAccountDetails() {
+        return await getAccountDetails(API_BASE_URL.DEMO, this.igApiKey, this.session.accountId, this.session.oauthToken.access_token)
+    }
+
+    /** Returns the transaction history. */
+    async getTransactionHistory(transactionHistoryRequest: TransactionHistoryRequest) {
+        return await getTransactionHistory(
+            API_BASE_URL.DEMO,
+            this.igApiKey,
+            this.session.accountId,
+            this.session.oauthToken.access_token,
+            transactionHistoryRequest.type,
+            transactionHistoryRequest.maxSpanSeconds,
+            transactionHistoryRequest.pageSize,
+            transactionHistoryRequest.pageNumber,
+            transactionHistoryRequest.from,
+            transactionHistoryRequest.to
+        )
     }
 
     /* Streaming APIs */
