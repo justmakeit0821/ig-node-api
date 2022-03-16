@@ -623,7 +623,8 @@ export interface Position {
 
 /* Transaction History Request - Start */
 export interface TransactionHistoryRequest {
-    type: TransactionType
+    /** (Default = ALL) */
+    type?: TransactionType
     /** Limits the timespan in seconds through to current time (not applicable if a date range has been specified) */
     maxSpanSeconds?: number
     /** Page size (disable paging = 0) (Default = 20) */
@@ -703,3 +704,97 @@ export interface Balance {
 export type AccountType = 'CFD' | 'PHYSICAL' | 'SPREADBET'
 
 export type AccountStatus = 'DISABLED' | 'ENABLED' | 'SUSPENDED_FROM_DEALING'
+
+/* Activity History Request - Start */
+export interface ActivityHistoryRequest {
+    /** Start date. DateTime Format: yyyy-MM-dd'T'HH:mm:ss */
+    from: string
+    detailed?: boolean
+    /** Page size (min = 10, max = 500, Default = 50) */
+    pageSize?: number
+    /** Deal ID */
+    dealId?: string
+    /** FIQL filter (supported operators: ==|!=|,|;) */
+    filter?: string
+    /** End date. (Default = current time. A date without time component refers to the end of that day.) DateTime Format: yyyy-MM-dd'T'HH:mm:ss */
+    to?: string
+}
+/* Activity History Request - End */
+
+/* Activity History Response - Start */
+export interface ActivityHistoryResponse {
+    activities: Activity[]
+    metadata: { paging: Paging }
+}
+export interface Activity {
+    /** The channel which triggered the activity. */
+    channel: ActivityChannel
+    /** The date of the activity item */
+    date: string
+    dealId: string
+    /** Activity description */
+    description: string
+    details: ActivityDetails
+    epic: string
+    /** The period of the activity item, e.g., "DFB" or "02-SEP-11". This will be the expiry time/date for sprint markets, e.g., "2015-10-13T12:42:05" */
+    period: string
+    status: ActionStatus
+    type: ActivityType
+}
+
+export interface ActivityDetails {
+    actions: Action[]
+    currency: string
+    dealReference: string
+    direction: DealDirection
+    goodTillDate: string
+    guaranteedStop: boolean
+    level: number
+    limitLevel: number
+    limitDistance: number
+    marketName: string
+    size: number
+    stopLevel: number
+    stopDistance: number
+    trailingStep: number
+    trailingStopDistance: number
+}
+
+export interface Action {
+    actionType: ActionType
+    affectedDealId: string
+}
+
+export type ActivityChannel = 'DEALER' | 'MOBILE' | 'PUBLIC_FIX_API' | 'PUBLIC_WEB_API' | 'SYSTEM' | 'WEB'
+
+export type ActionType =
+    | 'LIMIT_ORDER_AMENDED'
+    | 'LIMIT_ORDER_DELETED'
+    | 'LIMIT_ORDER_FILLED'
+    | 'LIMIT_ORDER_OPENED'
+    | 'LIMIT_ORDER_ROLLED'
+    | 'POSITION_CLOSED'
+    | 'POSITION_DELETED'
+    | 'POSITION_OPENED'
+    | 'POSITION_PARTIALLY_CLOSED'
+    | 'POSITION_ROLLED'
+    | 'STOP_LIMIT_AMENDED'
+    | 'STOP_ORDER_AMENDED'
+    | 'STOP_ORDER_DELETED'
+    | 'STOP_ORDER_FILLED'
+    | 'STOP_ORDER_OPENED'
+    | 'STOP_ORDER_ROLLED'
+    | 'UNKNOWN'
+    | 'WORKING_ORDER_DELETED'
+
+export type ActionStatus = 'ACCEPTED' | 'REJECTED' | 'UNKNOWN'
+
+export type ActivityType = 'EDIT_STOP_AND_LIMIT' | 'POSITION' | 'SYSTEM' | 'WORKING_ORDER'
+
+export interface Paging {
+    /** Next page, e.g., "/history/activity?version=3&from=2022-01-01T00:00:00&to=2022-03-06T09:04:29&detailed=true&pageSize=50" */
+    next: string
+    /** Page size */
+    size: number
+}
+/* Activity History Response - End */

@@ -1,3 +1,3 @@
 import { getAccountDetails } from './accounts'
-import { getTransactionHistory } from './activity'
-export { getAccountDetails, getTransactionHistory }
+import { getActivityHistory, getTransactionHistory } from './activity'
+export { getAccountDetails, getActivityHistory, getTransactionHistory }

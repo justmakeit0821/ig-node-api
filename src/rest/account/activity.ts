@@ -1,5 +1,50 @@
 import axios from 'axios'
-import { TransactionType, TransactionHistoryResponse } from '../../types'
+import { ActivityHistoryResponse, TransactionType, TransactionHistoryResponse } from '../../types'
+
+export const getActivityHistory = async (
+    apiBaseUrl: string,
+    igApiKey: string,
+    accountId: string,
+    accessToken: string,
+    /** Start date. DateTime Format: yyyy-MM-dd'T'HH:mm:ss */
+    from: string,
+    detailed: boolean = false,
+    /** Page size (min = 10, max = 500, Default = 50) */
+    pageSize: number = 50,
+    /** Deal ID */
+    dealId?: string,
+    /** FIQL filter (supported operators: ==|!=|,|;) */
+    filter?: string,
+    /** End date. (Default = current time. A date without time component refers to the end of that day.) DateTime Format: yyyy-MM-dd'T'HH:mm:ss */
+    to?: string
+) => {
+    const searchParams = new URLSearchParams({
+        from,
+        detailed: detailed.toString(),
+        pageSize: pageSize.toString()
+    })
+    if (dealId) {
+        searchParams.append('dealId', dealId)
+    }
+    if (filter) {
+        searchParams.append('filter', filter)
+    }
+    if (to) {
+        searchParams.append('to', to)
+    }
+
+    const { data }: { data: ActivityHistoryResponse } = await axios({
+        method: 'get',
+        url: `${apiBaseUrl}/history/activity?${searchParams.toString()}`,
+        headers: {
+            'X-IG-API-KEY': igApiKey,
+            'IG-ACCOUNT-ID': accountId,
+            Authorization: `Bearer ${accessToken}`,
+            Version: 3
+        }
+    })
+    return data
+}
 
 export const getTransactionHistory = async (
     apiBaseUrl: string,

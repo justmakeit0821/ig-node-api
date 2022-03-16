@@ -98,8 +98,11 @@ const main = async () => {
         const accountDetails = await myIg.getAccountDetails()
         console.log(JSON.stringify(accountDetails, null, 4))
 
-        const transactionHistory = await myIg.getTransactionHistory({ type: 'ALL', maxSpanSeconds: 600000 })
-        console.log(transactionHistory)
+        const activityHistory = await myIg.getActivityHistory({ from: '2022-01-01T00:00:00', detailed: true })
+        console.log(activityHistory)
+
+        // const transactionHistory = await myIg.getTransactionHistory({ maxSpanSeconds: 600000 })
+        // console.log(transactionHistory)
 
         /* Test Streaming APIs */
         // const lsClient = myIg.connectLightStreamer()
