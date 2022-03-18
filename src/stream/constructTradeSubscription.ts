@@ -1,5 +1,4 @@
 import { ItemUpdate, Subscription } from 'lightstreamer-client-node'
-import { TradeSubscriptionField, TradeConfirmation, OpenPositionUpdate } from '../types'
 
 export const constructTradeSubscription = (
     accountId: string,

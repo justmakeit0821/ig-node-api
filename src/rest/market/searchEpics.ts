@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { Market } from '../../types'
 
 export const searchEpics = async (apiBaseUrl: string, query: string, igApiKey: string, accountId: string, accessToken: string) => {
     const { data }: { data: { markets: Market[] } } = await axios({

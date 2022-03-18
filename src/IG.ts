@@ -1,14 +1,4 @@
 import { API_BASE_URL, MarketDetailsFilterType } from './constant'
-import {
-    Session,
-    SecurityTokens,
-    PriceRequest,
-    CreateWatchlistRequest,
-    CreatePositionRequest,
-    ClosePositionRequest,
-    TransactionHistoryRequest,
-    ActivityHistoryRequest
-} from './types'
 import { fetchOauthTokens, fetchSecurityTokens } from './rest/session'
 import { searchEpics, getMarketCategories, getMarketSubCategories, getMarketsDetails, getMarketDetails, getPrices } from './rest/market'
 import { getWatchlists, getWatchlistDetail, createWatchlist, deleteWatchlist } from './rest/watchlist'

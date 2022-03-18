@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { Watchlist, Market, CreateWatchlistRequest, CreateWatchlistResponse } from '../../types'
 
 export const getWatchlists = async (apiBaseUrl: string, igApiKey: string, accountId: string, accessToken: string) => {
     const { data }: { data: { watchlists: Watchlist[] } } = await axios({

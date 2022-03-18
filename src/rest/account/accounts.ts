@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { Account } from '../../types'
 
 export const getAccountDetails = async (apiBaseUrl: string, igApiKey: string, accountId: string, accessToken: string) => {
     const { data }: { data: { accounts: Account[] } } = await axios({

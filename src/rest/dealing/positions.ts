@@ -1,13 +1,4 @@
 import axios from 'axios'
-import {
-    CreatePositionRequest,
-    CreatePositionResponse,
-    CheckDealStatusResponse,
-    ClosePositionRequest,
-    ClosePositionResponse,
-    Position,
-    Market
-} from '../../types'
 
 export const createOtcPosition = async (
     createPositionRequest: CreatePositionRequest,

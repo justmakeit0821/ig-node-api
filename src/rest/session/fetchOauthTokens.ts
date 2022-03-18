@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { Session } from '../../types'
 
 export const fetchOauthTokens = async (apiBaseUrl: string, username: string, password: string, igApiKey: string) => {
     try {

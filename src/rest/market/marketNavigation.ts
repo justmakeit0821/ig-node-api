@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { MarketCategory } from '../../types'
 
 export const getMarketCategories = async (apiBaseUrl: string, igApiKey: string, accountId: string, accessToken: string) => {
     const { data }: { data: { markets: any; nodes: MarketCategory[] } } = await axios({

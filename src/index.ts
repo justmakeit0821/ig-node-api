@@ -3,7 +3,6 @@ import { constructCandleSubscription } from './stream/constructCandleSubscriptio
 import { constructTradeSubscription } from './stream/constructTradeSubscription'
 import { CandleField, Scale } from './constant'
 import { onAppShutodwn } from './exception-handler'
-import { Candle, TradeConfirmation, OpenPositionUpdate } from './types'
 
 const main = async () => {
     try {

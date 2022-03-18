@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { PriceResponse, PriceResolution } from '../../types'
 
 export const getPrices = async (
     apiBaseUrl: string,
