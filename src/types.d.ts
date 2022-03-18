@@ -798,3 +798,65 @@ export interface Paging {
     size: number
 }
 /* Activity History Response - End */
+
+/**
+ * - CONFIRMS: Trade confirmations for an account
+ * - OPU: Open position updates for an account
+ * - WOU: Working order updates for an account
+ */
+export type TradeSubscriptionField = 'CONFIRMS' | 'OPU' | 'WOU'
+
+export interface TradeConfirmation {
+    affectedDeals: Deal[]
+    channel: string
+    date: string
+    dealId: string
+    dealReference: string
+    dealStatus: DealStatus
+    direction: DealDirection
+    epic: string
+    expiry: string
+    guaranteedStop: boolean
+    level: number
+    limitLevel: number
+    limitDistance: number
+    profit: number
+    profitCurrency: string
+    reason: string
+    size: number
+    /** Resultant position or working order status */
+    status: PositionStatus
+    stopLevel: number
+    stopDistance: number
+    trailingStop: boolean
+}
+
+export interface OpenPositionUpdate {
+    channel: string
+    currency: string
+    dealId: string
+    dealIdOrigin: string
+    dealReference: string
+    dealStatus: DealStatus
+    direction: DealDirection
+    epic: string
+    expiry: string
+    goodTillDate: string
+    guaranteedStop: boolean
+    level: number
+    limitLevel: number
+    limitDistance: number
+    orderType: string
+    size: number
+    status: OpenPositionUpdateStatus
+    stopLevel: number
+    stopDistance: number
+    timeInForce: OpenPositionUpdateTimeInForce
+    timestamp: string
+    trailingStopDistance: number
+    trailingStep: number
+}
+
+export type OpenPositionUpdateStatus = 'OPEN' | 'UPDATED' | 'DELETED'
+
+export type OpenPositionUpdateTimeInForce = 'GOOD_TILL_CANCELLED' | 'GOOD_TILL_DATE'

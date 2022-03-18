@@ -1,8 +1,9 @@
 import IG from './IG'
 import { constructCandleSubscription } from './stream/constructCandleSubscription'
+import { constructTradeSubscription } from './stream/constructTradeSubscription'
 import { CandleField, Scale } from './constant'
 import { onAppShutodwn } from './exception-handler'
-import { Candle } from './types'
+import { Candle, TradeConfirmation, OpenPositionUpdate } from './types'
 
 const main = async () => {
     try {
@@ -95,17 +96,18 @@ const main = async () => {
         // const anOpenPosition = await myIg.getOpenPosition('DIAAAAHT5EG3KA5')
         // console.log(JSON.stringify(anOpenPosition, null, 4))
 
-        const accountDetails = await myIg.getAccountDetails()
-        console.log(JSON.stringify(accountDetails, null, 4))
+        // const accountDetails = await myIg.getAccountDetails()
+        // console.log(JSON.stringify(accountDetails, null, 4))
 
-        const activityHistory = await myIg.getActivityHistory({ from: '2022-01-01T00:00:00', detailed: true })
-        console.log(activityHistory)
+        // const activityHistory = await myIg.getActivityHistory({ from: '2022-01-01T00:00:00', detailed: true })
+        // console.log(activityHistory)
 
         // const transactionHistory = await myIg.getTransactionHistory({ maxSpanSeconds: 600000 })
         // console.log(transactionHistory)
 
         /* Test Streaming APIs */
-        // const lsClient = myIg.connectLightStreamer()
+        const lsClient = myIg.connectLightStreamer()
+        // Subscribe Candle changes
         // const candleSubscription = constructCandleSubscription(
         //     ['CS.D.BITCOIN.CFD.IP'],
         //     Scale['1MINUTE'],
@@ -116,6 +118,16 @@ const main = async () => {
         //     }
         // )
         // lsClient.subscribe(candleSubscription)
+
+        // Subscribe Trade related updates
+        const tradeSubscription = constructTradeSubscription(
+            session.accountId,
+            ['CONFIRMS', 'OPU', 'WOU'],
+            (tradeUpdates: { CONFIRMS: TradeConfirmation; OPU: OpenPositionUpdate; WOU: any }) => {
+                console.log(tradeUpdates)
+            }
+        )
+        lsClient.subscribe(tradeSubscription)
     } catch (err) {
         // console.error(err)
     }

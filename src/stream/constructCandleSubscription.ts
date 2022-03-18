@@ -9,13 +9,13 @@ export const constructCandleSubscription = (epics: string[], scale: string, fiel
     )
     subscription.addListener({
         onSubscription: function () {
-            console.info('Subscribed for', epics)
+            console.info('Subscribed Candle changes for', epics)
         },
         onUnsubscription: function () {
-            console.log('Unsubscribed for', epics)
+            console.info('Unsubscribed Candle changes for', epics)
         },
         onSubscriptionError: function (errCode: number, errMsg: string) {
-            console.error('On Subscription Error:', errCode, errMsg)
+            console.error('On Candle Subscription Error:', errCode, errMsg)
         },
         onItemUpdate: function (item: ItemUpdate) {
             const epic = item.getItemName().split(':')[1]
