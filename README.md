@@ -1,10 +1,6 @@
 # ig-node-api
 
-[![Build][build-badge]][build]
-[![Downloads][downloads-badge]][downloads]
-[![Size][size-badge]][size]
-
-> A Node.js library for IG Trading API.
+**A Node.js library for [IG Trading API](https://labs.ig.com/gettingstarted).**
 
 ## Getting Started
 ### Authentication
