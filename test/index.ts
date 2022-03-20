@@ -1,4 +1,5 @@
 import IG, { constructCandleSubscription, constructTradeSubscription, CandleField, Scale } from '../src/'
+import { Candle, OpenPositionUpdate, TradeConfirmation } from '../src/@types'
 import { onAppShutodwn } from './exception-handler'
 
 const main = async () => {
@@ -107,7 +108,7 @@ const main = async () => {
             ['CS.D.BITCOIN.CFD.IP'],
             Scale['1MINUTE'],
             Object.values(CandleField),
-            (epic: string, data: any) => {
+            (epic: string, data: Candle) => {
                 data.UTM = new Date(Number(data.UTM)).toLocaleString()
                 console.log(epic, data)
             }
@@ -118,7 +119,7 @@ const main = async () => {
         const tradeSubscription = constructTradeSubscription(
             session.accountId,
             ['CONFIRMS', 'OPU', 'WOU'],
-            (tradeUpdates: { CONFIRMS: any; OPU: any; WOU: any }) => {
+            (tradeUpdates: { CONFIRMS: TradeConfirmation; OPU: OpenPositionUpdate; WOU: any }) => {
                 console.log(tradeUpdates)
             }
         )
