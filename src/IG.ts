@@ -4,7 +4,7 @@ import { searchEpics, getMarketCategories, getMarketSubCategories, getMarketsDet
 import { getWatchlists, getWatchlistDetail, createWatchlist, deleteWatchlist } from './rest/watchlist'
 import { createOtcPosition, closeOtcPosition, checkDealStatus, getOpenPositions, getOpenPosition } from './rest/dealing'
 import { getAccountDetails, getActivityHistory, getTransactionHistory } from './rest/account'
-import { connectLightStreamer } from './stream/connectLightStreamer'
+import { connectLightstreamer } from './stream/connectLightstreamer2'
 
 export default class IG {
     private username: string
@@ -175,7 +175,8 @@ export default class IG {
     }
 
     /* Streaming APIs */
-    connectLightStreamer() {
-        return connectLightStreamer(this.session.lightstreamerEndpoint, this.session.accountId, this.securityTokens.cst, this.securityTokens.xst)
+    /** Connect To Lightstreamer Server */
+    connectLightstreamer() {
+        return connectLightstreamer(this.session.lightstreamerEndpoint, this.session.accountId, this.securityTokens.cst, this.securityTokens.xst)
     }
 }

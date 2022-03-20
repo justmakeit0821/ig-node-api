@@ -1,6 +1,6 @@
 import { LightstreamerClient } from 'lightstreamer-client-node'
 
-export const connectLightStreamer = (lsEndPoint: string, accountId: string, cst: string, xst: string) => {
+export const connectLightstreamer = (lsEndPoint: string, accountId: string, cst: string, xst: string) => {
     const lsClient = new LightstreamerClient(lsEndPoint)
     lsClient.connectionDetails.setUser(accountId)
     lsClient.connectionDetails.setPassword(`CST-${cst}|XST-${xst}`)
