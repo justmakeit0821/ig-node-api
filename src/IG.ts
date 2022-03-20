@@ -4,7 +4,7 @@ import { searchEpics, getMarketCategories, getMarketSubCategories, getMarketsDet
 import { getWatchlists, getWatchlistDetail, createWatchlist, deleteWatchlist } from './rest/watchlist'
 import { createOtcPosition, closeOtcPosition, checkDealStatus, getOpenPositions, getOpenPosition } from './rest/dealing'
 import { getAccountDetails, getActivityHistory, getTransactionHistory } from './rest/account'
-import { connectLightstreamer } from './stream/connectLightstreamer2'
+import { connectLightstreamer } from './stream/'
 
 export default class IG {
     private username: string
