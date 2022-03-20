@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { SecurityTokens } from '../../@types'
 
 export const fetchSecurityTokens = async (apiBaseUrl: string, igApiKey: string, accountId: string, accessToken: string): Promise<SecurityTokens> => {
     try {

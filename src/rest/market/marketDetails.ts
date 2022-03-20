@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { MarketDetail } from '../../@types'
 import { MarketDetailsFilterType } from '../../constant'
 
 export const getMarketsDetails = async (

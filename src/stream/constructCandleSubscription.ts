@@ -1,4 +1,5 @@
 import { ItemUpdate, Subscription } from 'lightstreamer-client-node'
+import { Candle } from '../@types'
 
 export const constructCandleSubscription = (epics: string[], scale: string, fields: string[], handler: (epic: string, candle: Candle) => void) => {
     const subscription = new Subscription(

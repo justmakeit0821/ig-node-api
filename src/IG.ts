@@ -5,6 +5,16 @@ import { getWatchlists, getWatchlistDetail, createWatchlist, deleteWatchlist } f
 import { createOtcPosition, closeOtcPosition, checkDealStatus, getOpenPositions, getOpenPosition } from './rest/dealing'
 import { getAccountDetails, getActivityHistory, getTransactionHistory } from './rest/account'
 import { connectLightstreamer } from './stream/'
+import {
+    Session,
+    SecurityTokens,
+    PriceRequest,
+    CreateWatchlistRequest,
+    CreatePositionRequest,
+    ClosePositionRequest,
+    ActivityHistoryRequest,
+    TransactionHistoryRequest
+} from './@types'
 
 export default class IG {
     private username: string

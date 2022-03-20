@@ -1,4 +1,17 @@
-interface OauthToken {
+declare global {
+    namespace NodeJS {
+        interface ProcessEnv {
+            IG_LIVE_API_KEY: string
+            IG_LIVE_USERNAME: string
+            IG_LIVE_PASSWORD: string
+            IG_DEMO_API_KEY: string
+            IG_DEMO_USERNAME: string
+            IG_DEMO_PASSWORD: string
+        }
+    }
+}
+
+export interface OauthToken {
     access_token: string
     refresh_token: string
     scope: string
@@ -6,7 +19,7 @@ interface OauthToken {
     expires_in: string
 }
 
-interface Session {
+export interface Session {
     clientId: string
     accountId: string
     timezoneOffset: number
@@ -14,7 +27,7 @@ interface Session {
     oauthToken: OauthToken
 }
 
-interface Market {
+export interface Market {
     epic: string
     instrumentName: string
     instrumentType: InstrumentType
@@ -33,17 +46,17 @@ interface Market {
     scalingFactor: number
 }
 
-interface MarketCategory {
+export interface MarketCategory {
     id: string
     name: string
 }
 
-interface SecurityTokens {
+export interface SecurityTokens {
     cst: string
     xst: string
 }
 
-interface Candle {
+export interface Candle {
     LTV: string
     TTV: string
     UTM: string
@@ -69,13 +82,13 @@ interface Candle {
 }
 
 /* MarketDetail - Start */
-interface MarketDetail {
+export interface MarketDetail {
     dealingRules: DealingRules
     instrument: Instrument
     snapshot: Snapshot
 }
 
-interface DealingRules {
+export interface DealingRules {
     controlledRiskSpacing: DealingRule
     marketOrderPreference: MarketOrderPreference
     maxStopOrLimitDistance: DealingRule
@@ -86,17 +99,17 @@ interface DealingRules {
     trailingStopsPreference: TrailingStopsPreference
 }
 
-type MarketOrderPreference = 'AVAILABLE_DEFAULT_OFF' | 'AVAILABLE_DEFAULT_ON' | 'NOT_AVAILABLE'
-type TrailingStopsPreference = 'AVAILABLE' | 'NOT_AVAILABLE'
+export type MarketOrderPreference = 'AVAILABLE_DEFAULT_OFF' | 'AVAILABLE_DEFAULT_ON' | 'NOT_AVAILABLE'
+export type TrailingStopsPreference = 'AVAILABLE' | 'NOT_AVAILABLE'
 
-interface DealingRule {
+export interface DealingRule {
     unit: Unit
     value: number
 }
 
-type Unit = 'PERCENTAGE' | 'POINTS'
+export type Unit = 'PERCENTAGE' | 'POINTS'
 
-interface Instrument {
+export interface Instrument {
     chartCode: string
     contractSize: string
     controlledRiskAllowed: boolean
@@ -128,7 +141,7 @@ interface Instrument {
     valueOfOnePip: string
 }
 
-type InstrumentType =
+export type InstrumentType =
     | 'BINARY'
     | 'BUNGEE_CAPPED'
     | 'BUNGEE_COMMODITIES'
@@ -153,24 +166,24 @@ type InstrumentType =
     | 'TEST_MARKET'
     | 'UNKNOWN'
 
-type TradeUnit = 'AMOUNT' | 'CONTRACTS' | 'SHARES'
+export type TradeUnit = 'AMOUNT' | 'CONTRACTS' | 'SHARES'
 
-interface TimeRange {
+export interface TimeRange {
     openTime: string
     closeTime: string
 }
 
-interface MarketRolloverDetails {
+export interface MarketRolloverDetails {
     lastRolloverTime: string
     rolloverInfo: string
 }
 
-interface MarketExpiryDetails {
+export interface MarketExpiryDetails {
     lastDealingDate: string
     settlementInfo: string
 }
 
-interface Currency {
+export interface Currency {
     baseExchangeRate: number
     code: string
     exchangeRate: number
@@ -178,14 +191,14 @@ interface Currency {
     symbol: string
 }
 
-interface MarginDepositBand {
+export interface MarginDepositBand {
     currency: string
     margin: number
     max: number
     min: number
 }
 
-interface Snapshot {
+export interface Snapshot {
     bid: number
     binaryOdds: number
     controlledRiskExtraSpread: number
@@ -201,11 +214,11 @@ interface Snapshot {
     updateTime: string
 }
 
-type MarketStatus = 'CLOSED' | 'EDITS_ONLY' | 'OFFLINE' | 'ON_AUCTION' | 'ON_AUCTION_NO_EDITS' | 'SUSPENDED' | 'TRADEABLE'
+export type MarketStatus = 'CLOSED' | 'EDITS_ONLY' | 'OFFLINE' | 'ON_AUCTION' | 'ON_AUCTION_NO_EDITS' | 'SUSPENDED' | 'TRADEABLE'
 /* MarketDetails - End */
 
 /* Price Request - Start */
-interface PriceRequest {
+export interface PriceRequest {
     epic: string
     resolution?: PriceResolution
     /** Limits the number of price points (not applicable if a date range [from, to] has been specified) (Default = 10) */
@@ -221,7 +234,7 @@ interface PriceRequest {
 }
 /* Price Request - End*/
 
-type PriceResolution =
+export type PriceResolution =
     | 'DAY'
     | 'HOUR'
     | 'HOUR_2'
@@ -239,31 +252,31 @@ type PriceResolution =
     | 'WEEK'
 
 /* Price Response - Start */
-interface PriceResponse {
+export interface PriceResponse {
     instrumentType: InstrumentType
     metadata: Metadata
     prices: Candlestick[]
 }
 
-interface Metadata {
+export interface Metadata {
     allowance: Allowance
     pageData: PageData
     size: number
 }
 
-interface Allowance {
+export interface Allowance {
     allowanceExpiry: number
     remainingAllowance: number
     totalAllowance: number
 }
 
-interface PageData {
+export interface PageData {
     pageNumber: number
     pageSize: number
     totalPages: number
 }
 
-interface Candlestick {
+export interface Candlestick {
     closePrice: PriceTick
     highPrice: PriceTick
     /** Last traded price. This will generally be null for non exchange-traded instruments */
@@ -275,7 +288,7 @@ interface Candlestick {
     snapshotTimeUTC: string
 }
 
-interface PriceTick {
+export interface PriceTick {
     ask: number
     bid: number
     lastTraded: number
@@ -283,7 +296,7 @@ interface PriceTick {
 /* Price Response - End */
 
 /* Watchlist - Start */
-interface Watchlist {
+export interface Watchlist {
     id: string
     name: string
     /** True if this watchlist can be altered by the user */
@@ -295,12 +308,12 @@ interface Watchlist {
 }
 /* Watchlist - End */
 
-interface CreateWatchlistRequest {
+export interface CreateWatchlistRequest {
     name: string
     epics: string[]
 }
 
-interface CreateWatchlistResponse {
+export interface CreateWatchlistResponse {
     status: 'SUCCESS' | 'SUCCESS_NOT_ALL_INSTRUMENTS_ADDED'
     /** identifier of the watchlist just created, if successful */
     watchlistId: string
@@ -331,7 +344,7 @@ interface CreateWatchlistResponse {
  * 3. If `trailingStop` equals `true`, then `guaranteedStop` must be `false`.
  * 4. If `trailingStop` equals `true`, then set `stopDistance`, `trailingStopIncrement`.
  */
-interface CreatePositionRequest {
+export interface CreatePositionRequest {
     /** Constraint: Pattern(regexp="[A-Za-z0-9._]{6,30}") */
     epic: string
     direction: DealDirection
@@ -364,32 +377,32 @@ interface CreatePositionRequest {
     dealReference?: string
 }
 
-type DealDirection = 'BUY' | 'SELL'
+export type DealDirection = 'BUY' | 'SELL'
 
-type CurrencyCode = 'AUD' | 'USD' | 'GBP' | 'EUR' | 'CHF'
+export type CurrencyCode = 'AUD' | 'USD' | 'GBP' | 'EUR' | 'CHF'
 
 /**
  * LIMIT: Limit orders get executed at the price seen by IG at the moment of booking a trade. A limit determines the level at which the order or the remainder of the order will be rejected. <br/>
  *
  * MARKET: Market orders get executed at the price seen by the IG at the time of booking the trade. A level cannot be specified. Not applicable to BINARY instruments. <br/>
  *
- * QUOTE: Quote orders get executed at the specified level. The level has to be accompanied by a valid quote id. This type is only available subject to agreement with IG.
+ export * QUOTE: Quote orders get executed at the specified level. The level has to be accompanied by a valid quote id. This type is only available subject to agreement with IG.
  */
-type OrderType = 'LIMIT' | 'MARKET' | 'QUOTE'
+export type OrderType = 'LIMIT' | 'MARKET' | 'QUOTE'
 
-type Expiry = '-' | 'DFB' | string
+export type Expiry = '-' | 'DFB' | string
 
-type TimeInForce = 'EXECUTE_AND_ELIMINATE' | 'FILL_OR_KILL'
+export type TimeInForce = 'EXECUTE_AND_ELIMINATE' | 'FILL_OR_KILL'
 /* Create Position Request - End */
 
 /* Create Position Response - Start */
-interface CreatePositionResponse {
+export interface CreatePositionResponse {
     dealReference: string
 }
 /* Create Position Request - End */
 
 /* CheckDealStatusResponse - Start */
-interface CheckDealStatusResponse {
+export interface CheckDealStatusResponse {
     affectedDeals: Deal[]
     date: string
     dealId: string
@@ -412,16 +425,16 @@ interface CheckDealStatusResponse {
     trailingStop: boolean
 }
 
-interface Deal {
+export interface Deal {
     dealId: string
     status: AffectedDealStatus
 }
 
-type AffectedDealStatus = 'AMENDED' | 'DELETED' | 'FULLY_CLOSED' | 'OPENED' | 'PARTIALLY_CLOSED'
+export type AffectedDealStatus = 'AMENDED' | 'DELETED' | 'FULLY_CLOSED' | 'OPENED' | 'PARTIALLY_CLOSED'
 
-type DealStatus = 'ACCEPTED' | 'REJECTED'
+export type DealStatus = 'ACCEPTED' | 'REJECTED'
 
-type PositionStatus = 'AMENDED' | 'CLOSED' | 'DELETED' | 'OPEN' | 'PARTIALLY_CLOSED'
+export type PositionStatus = 'AMENDED' | 'CLOSED' | 'DELETED' | 'OPEN' | 'PARTIALLY_CLOSED'
 
 /**
  * - ACCOUNT_NOT_ENABLED_TO_TRADING: The account is not enabled to trade
@@ -487,7 +500,7 @@ type PositionStatus = 'AMENDED' | 'CLOSED' | 'DELETED' | 'OPEN' | 'PARTIALLY_CLO
  * - UNKNOWN: The operation resulted in an unknown result condition. Check transaction history or contact support - for further information
  * - WRONG_SIDE_OF_MARKET: The requested operation has been attempted on the wrong direction
  */
-type DealConfirmRejectReason =
+export type DealConfirmRejectReason =
     | 'ACCOUNT_NOT_ENABLED_TO_TRADING'
     | 'ATTACHED_ORDER_LEVEL_ERROR'
     | 'ATTACHED_ORDER_TRAILING_STOP_ERROR'
@@ -565,7 +578,7 @@ type DealConfirmRejectReason =
  * - Constraint: If `orderType` equals "MARKET", then do not set {`level`, `quoteId`}
  * - Constraint: If `orderType` equals "QUOTE", then set {`level`, `quoteId`}
  */
-interface ClosePositionRequest {
+export interface ClosePositionRequest {
     /** Constraint: Pattern(regexp=".{1,30}") */
     dealId?: string
     /** Constraint: Pattern(regexp="[A-Za-z0-9._]{6,30}") */
@@ -583,12 +596,12 @@ interface ClosePositionRequest {
 /* Close Position Request - End */
 
 /* Close Position Response - Start */
-interface ClosePositionResponse {
+export interface ClosePositionResponse {
     dealReference: string
 }
 /* Close Position Request - End */
 
-interface Position {
+export interface Position {
     contractSize: number
     controlledRisk: boolean
     createdDate: string
@@ -607,7 +620,7 @@ interface Position {
 }
 
 /* Transaction History Request - Start */
-interface TransactionHistoryRequest {
+export interface TransactionHistoryRequest {
     /** (Default = ALL) */
     type?: TransactionType
     /** Limits the timespan in seconds through to current time (not applicable if a date range has been specified) */
@@ -623,9 +636,9 @@ interface TransactionHistoryRequest {
 }
 /* Transaction History Request - End */
 
-type TransactionType = 'ALL' | 'ALL_DEAL' | 'DEPOSIT' | 'WITHDRAWAL'
+export type TransactionType = 'ALL' | 'ALL_DEAL' | 'DEPOSIT' | 'WITHDRAWAL'
 
-interface Transaction {
+export interface Transaction {
     /** True if this was a cash transaction */
     cashTransaction: boolean
     /** Level at which the order was closed */
@@ -649,7 +662,7 @@ interface Transaction {
 }
 
 /* Transaction History Response - Start */
-interface TransactionHistoryResponse {
+export interface TransactionHistoryResponse {
     transactions: Transaction[]
     metadata: {
         size: number
@@ -658,7 +671,7 @@ interface TransactionHistoryResponse {
 }
 /* Transaction History Response - End */
 
-interface Account {
+export interface Account {
     accountAlias: string
     accountId: string
     accountName: string
@@ -675,7 +688,7 @@ interface Account {
     status: AccountStatus
 }
 
-interface Balance {
+export interface Balance {
     /** Amount available for trading */
     available: number
     /** Balance of funds in the account */
@@ -686,12 +699,12 @@ interface Balance {
     profitLoss: number
 }
 
-type AccountType = 'CFD' | 'PHYSICAL' | 'SPREADBET'
+export type AccountType = 'CFD' | 'PHYSICAL' | 'SPREADBET'
 
-type AccountStatus = 'DISABLED' | 'ENABLED' | 'SUSPENDED_FROM_DEALING'
+export type AccountStatus = 'DISABLED' | 'ENABLED' | 'SUSPENDED_FROM_DEALING'
 
 /* Activity History Request - Start */
-interface ActivityHistoryRequest {
+export interface ActivityHistoryRequest {
     /** Start date. DateTime Format: yyyy-MM-dd'T'HH:mm:ss */
     from: string
     detailed?: boolean
@@ -707,11 +720,11 @@ interface ActivityHistoryRequest {
 /* Activity History Request - End */
 
 /* Activity History Response - Start */
-interface ActivityHistoryResponse {
+export interface ActivityHistoryResponse {
     activities: Activity[]
     metadata: { paging: Paging }
 }
-interface Activity {
+export interface Activity {
     /** The channel which triggered the activity. */
     channel: ActivityChannel
     /** The date of the activity item */
@@ -727,7 +740,7 @@ interface Activity {
     type: ActivityType
 }
 
-interface ActivityDetails {
+export interface ActivityDetails {
     actions: Action[]
     currency: string
     dealReference: string
@@ -745,14 +758,14 @@ interface ActivityDetails {
     trailingStopDistance: number
 }
 
-interface Action {
+export interface Action {
     actionType: ActionType
     affectedDealId: string
 }
 
-type ActivityChannel = 'DEALER' | 'MOBILE' | 'PUBLIC_FIX_API' | 'PUBLIC_WEB_API' | 'SYSTEM' | 'WEB'
+export type ActivityChannel = 'DEALER' | 'MOBILE' | 'PUBLIC_FIX_API' | 'PUBLIC_WEB_API' | 'SYSTEM' | 'WEB'
 
-type ActionType =
+export type ActionType =
     | 'LIMIT_ORDER_AMENDED'
     | 'LIMIT_ORDER_DELETED'
     | 'LIMIT_ORDER_FILLED'
@@ -772,11 +785,11 @@ type ActionType =
     | 'UNKNOWN'
     | 'WORKING_ORDER_DELETED'
 
-type ActionStatus = 'ACCEPTED' | 'REJECTED' | 'UNKNOWN'
+export type ActionStatus = 'ACCEPTED' | 'REJECTED' | 'UNKNOWN'
 
-type ActivityType = 'EDIT_STOP_AND_LIMIT' | 'POSITION' | 'SYSTEM' | 'WORKING_ORDER'
+export type ActivityType = 'EDIT_STOP_AND_LIMIT' | 'POSITION' | 'SYSTEM' | 'WORKING_ORDER'
 
-interface Paging {
+export interface Paging {
     /** Next page, e.g., "/history/activity?version=3&from=2022-01-01T00:00:00&to=2022-03-06T09:04:29&detailed=true&pageSize=50" */
     next: string
     /** Page size */
@@ -789,9 +802,9 @@ interface Paging {
  * - OPU: Open position updates for an account
  * - WOU: Working order updates for an account
  */
-type TradeSubscriptionField = 'CONFIRMS' | 'OPU' | 'WOU'
+export type TradeSubscriptionField = 'CONFIRMS' | 'OPU' | 'WOU'
 
-interface TradeConfirmation {
+export interface TradeConfirmation {
     affectedDeals: Deal[]
     channel: string
     date: string
@@ -816,7 +829,7 @@ interface TradeConfirmation {
     trailingStop: boolean
 }
 
-interface OpenPositionUpdate {
+export interface OpenPositionUpdate {
     channel: string
     currency: string
     dealId: string
@@ -842,6 +855,6 @@ interface OpenPositionUpdate {
     trailingStep: number
 }
 
-type OpenPositionUpdateStatus = 'OPEN' | 'UPDATED' | 'DELETED'
+export type OpenPositionUpdateStatus = 'OPEN' | 'UPDATED' | 'DELETED'
 
-type OpenPositionUpdateTimeInForce = 'GOOD_TILL_CANCELLED' | 'GOOD_TILL_DATE'
+export type OpenPositionUpdateTimeInForce = 'GOOD_TILL_CANCELLED' | 'GOOD_TILL_DATE'

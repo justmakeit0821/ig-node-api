@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { ActivityHistoryResponse, TransactionType, TransactionHistoryResponse } from '../../@types'
 
 export const getActivityHistory = async (
     apiBaseUrl: string,
