@@ -1,6 +1,6 @@
 {
     "name": "ig-node-api",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "A Node.js library for IG Trading API.",
     "main": "./lib/cjs/index.js",
     "module": "./lib/esm/index.js",
@@ -33,12 +33,12 @@
         "nodemon": "^2.0.15",
         "rimraf": "^3.0.2",
         "ts-node": "^10.5.0",
-        "tslib": "^2.3.1",
         "typescript": "^4.5.5"
     },
     "dependencies": {
         "axios": "^0.25.0",
-        "lightstreamer-client-node": "^8.0.3"
+        "lightstreamer-client-node": "^8.0.3",
+        "tslib": "^2.3.1"
     },
     "prettier": {
         "tabWidth": 4,
