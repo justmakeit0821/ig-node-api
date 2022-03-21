@@ -2,6 +2,11 @@
 
 **A Node.js library for [IG Trading API](https://labs.ig.com/gettingstarted).**
 
+## Installation
+```shell
+npm i ig-node-api
+```
+
 ## Getting Started
 ### Authentication
 You need to authenticate first before accessing the REST APIs and the STREAM APIs.
