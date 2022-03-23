@@ -25,6 +25,8 @@ console.log(session)
 import IG from 'ig-node-api'
 
 const myIg = new IG(process.env.IG_DEMO_USERNAME, process.env.IG_DEMO_PASSWORD, process.env.IG_DEMO_API_KEY)
+const session = await myIg.authenticate()
+console.log(session)
 
 const markets = await myIg.searchEpics('us30')
 console.log(markets[0])
@@ -47,6 +49,8 @@ console.log(marketDetail)
 import IG from 'ig-node-api'
 
 const myIg = new IG(process.env.IG_DEMO_USERNAME, process.env.IG_DEMO_PASSWORD, process.env.IG_DEMO_API_KEY)
+const session = await myIg.authenticate()
+console.log(session)
 
 const prices = await myIg.getPrices({
     epic: 'IX.D.DOW.IFD.IP',
@@ -65,6 +69,8 @@ console.log(prices)
 import IG from 'ig-node-api'
 
 const myIg = new IG(process.env.IG_DEMO_USERNAME, process.env.IG_DEMO_PASSWORD, process.env.IG_DEMO_API_KEY)
+const session = await myIg.authenticate()
+console.log(session)
 
 const watchlistCreateResult = await myIg.createWatchlist({
     name: `My Watchlist`,
@@ -87,6 +93,8 @@ console.log(watchlistDeleteResult)
 import IG from 'ig-node-api'
 
 const myIg = new IG(process.env.IG_DEMO_USERNAME, process.env.IG_DEMO_PASSWORD, process.env.IG_DEMO_API_KEY)
+const session = await myIg.authenticate()
+console.log(session)
 
 const createPositionResponse = await myIg.createOtcPosition({
     epic: 'CS.D.BITCOIN.CFD.IP',
@@ -133,6 +141,8 @@ console.log(JSON.stringify(accountDetails, null, 4))
 import IG from 'ig-node-api'
 
 const myIg = new IG(process.env.IG_DEMO_USERNAME, process.env.IG_DEMO_PASSWORD, process.env.IG_DEMO_API_KEY)
+const session = await myIg.authenticate()
+console.log(session)
 
 const activityHistory = await myIg.getActivityHistory({ from: '2022-01-01T00:00:00', detailed: true })
 console.log(activityHistory)
@@ -143,6 +153,8 @@ console.log(activityHistory)
 import IG from 'ig-node-api'
 
 const myIg = new IG(process.env.IG_DEMO_USERNAME, process.env.IG_DEMO_PASSWORD, process.env.IG_DEMO_API_KEY)
+const session = await myIg.authenticate()
+console.log(session)
 
 const transactionHistory = await myIg.getTransactionHistory({ maxSpanSeconds: 600000 })
 console.log(transactionHistory)
@@ -154,15 +166,19 @@ console.log(transactionHistory)
 import IG from 'ig-node-api'
 
 const myIg = new IG(process.env.IG_DEMO_USERNAME, process.env.IG_DEMO_PASSWORD, process.env.IG_DEMO_API_KEY)
+const session = await myIg.authenticate()
+console.log(session)
 
 const lsClient = myIg.connectLightstreamer()
 ```
 
 #### Subscribe Candlestick Changes
 ```js
-import IG from 'ig-node-api'
+import IG, { constructCandleSubscription, Scale, CandleField, Candle } from 'ig-node-api'
 
 const myIg = new IG(process.env.IG_DEMO_USERNAME, process.env.IG_DEMO_PASSWORD, process.env.IG_DEMO_API_KEY)
+const session = await myIg.authenticate()
+console.log(session)
 
 const lsClient = myIg.connectLightstreamer()
 
@@ -180,9 +196,11 @@ lsClient.subscribe(candleSubscription)
 
 #### Subscribe Trade Related Updates
 ```js
-import IG from 'ig-node-api'
+import IG, { constructTradeSubscription, TradeConfirmation, OpenPositionUpdate } from 'ig-node-api'
 
 const myIg = new IG(process.env.IG_DEMO_USERNAME, process.env.IG_DEMO_PASSWORD, process.env.IG_DEMO_API_KEY)
+const session = await myIg.authenticate()
+console.log(session)
 
 const lsClient = myIg.connectLightstreamer()
 
