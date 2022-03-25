@@ -354,7 +354,7 @@ export interface CreatePositionRequest {
     forceOpen: boolean
     guaranteedStop: boolean
     /** Constraint: Pattern(regexp="[A-Z]{3}") */
-    currencyCode: CurrencyCode
+    currencyCode: string
     /** Constraint: Pattern(regexp="(\\d{2}-)?[A-Z]{3}-\\d{2}|-|DFB") */
     expiry: Expiry
 
@@ -378,8 +378,6 @@ export interface CreatePositionRequest {
 }
 
 export type DealDirection = 'BUY' | 'SELL'
-
-export type CurrencyCode = 'AUD' | 'USD' | 'GBP' | 'EUR' | 'CHF'
 
 /**
  * LIMIT: Limit orders get executed at the price seen by IG at the moment of booking a trade. A limit determines the level at which the order or the remainder of the order will be rejected. <br/>
@@ -606,7 +604,7 @@ export interface Position {
     controlledRisk: boolean
     createdDate: string
     createdDateUTC: string
-    currency: CurrencyCode
+    currency: string
     dealId: string
     dealReference: string
     direction: DealDirection
