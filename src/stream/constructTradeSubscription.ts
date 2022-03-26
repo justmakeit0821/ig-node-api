@@ -9,10 +9,10 @@ export const constructTradeSubscription = (
     const subscription = new Subscription('DISTINCT', `TRADE:${accountId}`, fields)
     subscription.addListener({
         onSubscription: function () {
-            console.info(`Subscribed ${fields.join(', ')} for Account ${accountId}.`)
+            console.info(`Subscribed Trade Updates of ${fields.join(', ')} for Account ${accountId}.`)
         },
         onUnsubscription: function () {
-            console.info(`Unsubscribed ${fields.join(', ')} for Account ${accountId}.`)
+            console.info(`Unsubscribed Trade Updates of ${fields.join(', ')} for Account ${accountId}.`)
         },
         onSubscriptionError: function (errCode: number, errMsg: string) {
             console.error('On Trade Subscription Error:', errCode, errMsg)

@@ -1,19 +1,24 @@
-import IG, { constructCandleSubscription, constructTradeSubscription, CandleField, Scale } from '../src/'
+import IG, { constructCandleSubscription, constructTradeSubscription, CandleField, Scale, API_BASE_URL, parseAxiosError } from '../src/'
 import { Candle, OpenPositionUpdate, TradeConfirmation } from '../src/@types'
 import { onAppShutodwn } from './exception-handler'
 
-const main = async () => {
+async function main() {
     try {
-        const myIg = new IG(process.env.IG_DEMO_USERNAME, process.env.IG_DEMO_PASSWORD, process.env.IG_DEMO_API_KEY)
+        const myIg = new IG(process.env.IG_DEMO_USERNAME, process.env.IG_DEMO_PASSWORD, process.env.IG_DEMO_API_KEY, API_BASE_URL.DEMO)
         /* Test REST APIs */
-        const session = await myIg.authenticate()
+        let session = await myIg.login()
         console.log('session:', session)
 
-        // const markets = await myIg.searchEpics('us30')
-        // console.log(markets[0])
+        const markets = await myIg.searchEpics('us30')
+        console.log(markets[0])
 
-        // const marketCategories = await myIg.getMarketCategories()
-        // console.log(marketCategories)
+        const oauthTokens = await myIg.refreshOauthTokens()
+        console.log('oauthTokens:', oauthTokens)
+
+        // await myIg.logout()
+
+        const marketCategories = await myIg.getMarketCategories()
+        console.log(marketCategories)
 
         // const marketSubCategories = await myIg.getMarketSubCategories('97606')
         // console.log(marketSubCategories)
@@ -21,8 +26,8 @@ const main = async () => {
         // const marketDetails = await myIg.getMarketsDetails(['IX.D.DOW.IFD.IP', 'IX.D.SPTRD.IFA.IP'])
         // console.dir(marketDetails)
 
-        // const marketDetail = await myIg.getMarketDetails('IX.D.DOW.IFD.IP')
-        // console.dir(marketDetail)
+        const marketDetail = await myIg.getMarketDetails('IX.D.DOW.IFD.IP')
+        console.dir(marketDetail)
 
         // const prices = await myIg.getPrices({
         //     epic: 'IX.D.DOW.IFD.IP',
@@ -104,28 +109,28 @@ const main = async () => {
         /* Test Streaming APIs */
         const lsClient = myIg.connectLightstreamer()
         /* Subscribe Candle changes */
-        const candleSubscription = constructCandleSubscription(
-            ['CS.D.BITCOIN.CFD.IP'],
-            Scale['1MINUTE'],
-            Object.values(CandleField),
-            (epic: string, data: Candle) => {
-                data.UTM = new Date(Number(data.UTM)).toLocaleString()
-                console.log(epic, data)
-            }
-        )
-        lsClient.subscribe(candleSubscription)
+        // const candleSubscription = constructCandleSubscription(
+        //     ['CS.D.BITCOIN.CFD.IP'],
+        //     Scale['1MINUTE'],
+        //     Object.values(CandleField),
+        //     (epic: string, data: Candle) => {
+        //         data.UTM = new Date(Number(data.UTM)).toLocaleString()
+        //         console.log(epic, data)
+        //     }
+        // )
+        // lsClient.subscribe(candleSubscription)
 
         /* Subscribe Trade related updates */
-        const tradeSubscription = constructTradeSubscription(
-            session.accountId,
-            ['CONFIRMS', 'OPU', 'WOU'],
-            (tradeUpdates: { CONFIRMS: TradeConfirmation; OPU: OpenPositionUpdate; WOU: any }) => {
-                console.log(tradeUpdates)
-            }
-        )
-        lsClient.subscribe(tradeSubscription)
+        // const tradeSubscription = constructTradeSubscription(
+        //     session.accountId,
+        //     ['CONFIRMS', 'OPU', 'WOU'],
+        //     (tradeUpdates: { CONFIRMS: TradeConfirmation; OPU: OpenPositionUpdate; WOU: any }) => {
+        //         console.log(tradeUpdates)
+        //     }
+        // )
+        // lsClient.subscribe(tradeSubscription)
     } catch (err) {
-        // console.error(err)
+        console.error(parseAxiosError(err))
     }
 
     /* Application Cleaning Up Before Shutdown */

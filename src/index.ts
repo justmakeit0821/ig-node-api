@@ -74,6 +74,7 @@ import {
     OpenPositionUpdateStatus,
     OpenPositionUpdateTimeInForce
 } from './@types'
+import { parseAxiosError } from './rest/parse-axios-error'
 
 export default IG
 export { constructCandleSubscription, constructTradeSubscription }
@@ -151,3 +152,4 @@ export {
     OpenPositionUpdateStatus,
     OpenPositionUpdateTimeInForce
 }
+export { parseAxiosError }
