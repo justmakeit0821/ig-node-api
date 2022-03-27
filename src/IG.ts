@@ -5,6 +5,7 @@ import { getWatchlists, getWatchlistDetail, createWatchlist, deleteWatchlist } f
 import { createOtcPosition, closeOtcPosition, checkDealStatus, getOpenPositions, getOpenPosition } from './rest/dealing'
 import { getAccountDetails, getActivityHistory, getTransactionHistory } from './rest/account'
 import { connectLightstreamer } from './stream/'
+import { parseAxiosError } from './rest/parse-axios-error'
 import {
     Session,
     SecurityTokens,
@@ -30,7 +31,11 @@ export default class IG {
     private async autoRefreshOauthTokens() {
         if (!this.isLogon) return
         clearTimeout(this.refreshTimeoutId)
-        this.session.oauthToken = await refreshOauthTokens(this.apiBaseUrl, this.session.oauthToken.refresh_token, this.igApiKey)
+        try {
+            this.session.oauthToken = await refreshOauthTokens(this.apiBaseUrl, this.session.oauthToken.refresh_token, this.igApiKey)
+        } catch (err: any) {
+            console.warn(parseAxiosError(err))
+        }
         this.refreshTimeoutId = setTimeout(() => {
             this.autoRefreshOauthTokens()
         }, (Number(this.session.oauthToken.expires_in) - this.REFRESH_OFFSET) * 1000)
@@ -63,7 +68,11 @@ export default class IG {
     /** Manually Refresh OAuth Tokens */
     async refreshOauthTokens() {
         clearTimeout(this.refreshTimeoutId)
-        this.session.oauthToken = await refreshOauthTokens(this.apiBaseUrl, this.session.oauthToken.refresh_token, this.igApiKey)
+        try {
+            this.session.oauthToken = await refreshOauthTokens(this.apiBaseUrl, this.session.oauthToken.refresh_token, this.igApiKey)
+        } catch (err: any) {
+            console.warn(parseAxiosError(err))
+        }
         this.refreshTimeoutId = setTimeout(() => {
             this.autoRefreshOauthTokens()
         }, (Number(this.session.oauthToken.expires_in) - this.REFRESH_OFFSET) * 1000)
