@@ -16,7 +16,8 @@ export const getMarketsDetails = async (
         headers: {
             'X-IG-API-KEY': igApiKey,
             'IG-ACCOUNT-ID': accountId,
-            Authorization: `Bearer ${accessToken}`
+            Authorization: `Bearer ${accessToken}`,
+            Version: 2
         }
     })
     return data.marketDetails
@@ -29,7 +30,8 @@ export const getMarketDetails = async (epic: string, apiBaseUrl: string, igApiKe
         headers: {
             'X-IG-API-KEY': igApiKey,
             'IG-ACCOUNT-ID': accountId,
-            Authorization: `Bearer ${accessToken}`
+            Authorization: `Bearer ${accessToken}`,
+            Version: 3
         }
     })
     return data
