@@ -34,7 +34,7 @@ export default class IG {
         try {
             this.session.oauthToken = await refreshOauthTokens(this.apiBaseUrl, this.session.oauthToken.refresh_token, this.igApiKey)
         } catch (err: any) {
-            console.warn(parseAxiosError(err))
+            console.warn('[ig-node-api]', parseAxiosError(err))
         }
         this.refreshTimeoutId = setTimeout(() => {
             this.autoRefreshOauthTokens()
@@ -71,7 +71,7 @@ export default class IG {
         try {
             this.session.oauthToken = await refreshOauthTokens(this.apiBaseUrl, this.session.oauthToken.refresh_token, this.igApiKey)
         } catch (err: any) {
-            console.warn(parseAxiosError(err))
+            console.warn('[ig-node-api]', parseAxiosError(err))
         }
         this.refreshTimeoutId = setTimeout(() => {
             this.autoRefreshOauthTokens()

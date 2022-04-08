@@ -10,16 +10,16 @@ export const connectLightstreamer = (lsEndPoint: string, accountId: string, cst:
     */
     lsClient.addListener({
         onListenStart: function (lsClient: LightstreamerClient) {
-            console.info('On Listen Start.')
+            console.info('[ig-node-api] On Listen Start.')
         },
         onStatusChange: function (status: string) {
-            console.info('On Status Change:', status)
+            console.info('[ig-node-api] On Status Change:', status)
         },
         onServerError: function (errCode: number, errMsg: string) {
-            console.error('On Server Error:', errCode, errMsg)
+            console.error('[ig-node-api] On Server Error:', errCode, errMsg)
         },
         onListenEnd: function (lsClient: LightstreamerClient) {
-            console.info('On Listen End.')
+            console.info('[ig-node-api] On Listen End.')
         },
         onPropertyChange: function (property: string) {
             // console.info('On Property Change:', property)
